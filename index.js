@@ -15,8 +15,8 @@ const corsOptions = {
   },
 };
 
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.json())
 
 let pathFound = true;
 
@@ -37,21 +37,11 @@ if ( !pathFound ){
 
 }
 
-app.get('/download', (req, res) => {
-    const filePath = __dirname + '/documents/cv.pdf';
+app.get('/download',( req , res )=>{
 
-    // Set headers for download
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=cv.pdf');
-
-    // Send the file for download
-    res.download(filePath, 'cv.pdf', (err) => {
-        if (err) {
-            res.send({'Error':500,'Msg':'Internal Server Error'});
-        } else {
-            res.send({'OK':200,'Msg':'File sent succesfully'});
-        }
-    });
-});
+    res.download( __dirname+'/documents/cv.pdf' )
+    res.send({'OK':200,'Msg':'File sent succesfully'});
+    
+})
 
 server.listen(3000)
