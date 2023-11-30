@@ -1,7 +1,15 @@
 const express = require('express'),
+cors = require('cors),
 app = express(),
-server = require('http').createServer(app)
+server = require('http').createServer(app);
 
+const corsOptions = {
+  origin: 'https://igvdeveloper-ws-com.onrender.com', // Replace with your allowed origin(s)
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type,Authorization',
+};
+
+app.use(cors(corsOptions));
 app.use(express.json())
 
 let pathFound = true;
