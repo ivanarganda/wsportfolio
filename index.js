@@ -37,8 +37,7 @@ if ( !pathFound ){
 
 }
 
-app.get('/download',( req , res )=>{
-
+app.get('/download', (req, res) => {
     const filePath = __dirname + '/documents/cv.pdf';
 
     // Set headers for download
@@ -49,15 +48,11 @@ app.get('/download',( req , res )=>{
     res.download(filePath, 'cv.pdf', (err) => {
         if (err) {
             console.error('Error sending file:', err);
-            res.status(500).send({Error:500,'Msg':'Internal Server Error'});
+            res.status(500).send('Internal Server Error');
         } else {
-            res.send({
-              'OK':200,
-              'Msg':'Downloaded succesfully'
-            })
+            console.log('File sent successfully');
         }
     });
-    
-})
+});
 
 server.listen(3000)
