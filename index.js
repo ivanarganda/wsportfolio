@@ -1,5 +1,5 @@
 const express = require('express'),
-cors = require('cors),
+cors = require('cors'),
 app = express(),
 server = require('http').createServer(app);
 
