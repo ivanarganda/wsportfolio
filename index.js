@@ -47,10 +47,9 @@ app.get('/download', (req, res) => {
     // Send the file for download
     res.download(filePath, 'cv.pdf', (err) => {
         if (err) {
-            console.error('Error sending file:', err);
-            res.status(500).send({'Error':500,'Msg':'Internal Server Error'});
+            res.send({'Error':500,'Msg':'Internal Server Error'});
         } else {
-            res.status(200).send({'OK':200,'Msg':'File sent succesfully'});
+            res.send({'OK':200,'Msg':'File sent succesfully'});
         }
     });
 });
