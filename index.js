@@ -40,6 +40,10 @@ if ( !pathFound ){
 app.get('/download',( req , res )=>{
 
     res.download( __dirname+'/documents/cv.pdf' )
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=cv.pdf');
+
+    res.sendFile(filePath);
     
 })
 
