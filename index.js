@@ -39,7 +39,12 @@ if ( !pathFound ){
 
 app.get('/download',( req , res )=>{
 
-    res.download( __dirname+'/documents/cv.pdf' )
+    const filePath = __dirname + '/documents/cv.pdf';
+
+    res.download( filePath );
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=cv.pdf');
+    res.sendFile(filePath);
     res.send({
       'OK':200,
       'Msg':'Downloaded succesfully'
