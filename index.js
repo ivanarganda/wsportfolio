@@ -3,7 +3,7 @@ cors = require('cors'),
 app = express(),
 server = require('http').createServer(app);
 
-const allowedOrigins = ['http://localhost:5173', 'https://igvdeveloper-ws-com.onrender.com'];
+const allowedOrigins = [ 'igvdeveloper.com' , 'http://localhost:5173', 'https://igvdeveloper-ws-com.onrender.com' ];
 
 const corsOptions = {
   origin: function (origin, callback) {
