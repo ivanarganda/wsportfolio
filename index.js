@@ -1,9 +1,9 @@
-const express = require('express'),
-cors = require('cors'),
-app = express(),
-server = require('http').createServer(app);
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const server = require('http').createServer(app);
 
-const allowedOrigins = [ 'https://igvdeveloper.com' , 'http://localhost:5173', 'https://igvdeveloper-ws-com.onrender.com' ];
+const allowedOrigins = ['https://igvdeveloper.com', 'http://localhost:5173', 'https://igvdeveloper-ws-com.onrender.com'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -17,32 +17,18 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.get('/download', (req, res) => {
+  res.download(__dirname + '/documents/cv.pdf');
+});
 
-let pathFound = true;
+// Catch-all route handler for unknown paths
+app.all('*', (req, res) => {
+  res.status(404).json({
+    'Error': 404,
+    'Msg': 'Not found services path ' + req.originalUrl,
+  });
+});
 
-if ( app.mountpath  != '/download' || app.mountpath  != '/sendemail' ){ 
-
-    pathFound = false;
-
-}
-
-if ( !pathFound ){
-
-    app.use(express.json())
-
-    app.get(app.mountpath , ( req , res)=>{
-        res.send({
-            'Error':404,
-            'Msg':'Not found services path: /download or /sendemail'
-        })
-    }) 
-
-}
-
-app.get('/download',( req , res )=>{
-
-    res.download( __dirname+'/documents/cv.pdf' )
-    
-})
-
-server.listen(3000)
+server.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
