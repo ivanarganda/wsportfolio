@@ -3,10 +3,16 @@ cors = require('cors'),
 app = express(),
 server = require('http').createServer(app);
 
+const allowedOrigins = ['http://localhost:5173', 'https://igvdeveloper-ws-com.onrender.com'];
+
 const corsOptions = {
-  origin: 'https://igvdeveloper-ws-com.onrender.com', // Replace with your allowed origin(s)
-  methods: 'GET,POST',
-  allowedHeaders: 'Content-Type,Authorization',
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
 };
 
 app.use(cors(corsOptions));
