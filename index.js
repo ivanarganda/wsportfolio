@@ -15,6 +15,7 @@ const corsOptions = {
   },
 };
 
+app.use(express.json());
 app.use(cors(corsOptions));
 
 let pathFound = true;
@@ -26,8 +27,6 @@ if ( app.mountpath  != '/download' || app.mountpath  != '/sendemail' ){
 }
 
 if ( !pathFound ){
-
-    app.use(express.json())
 
     app.get(app.mountpath , ( req , res)=>{
         res.send({
@@ -41,10 +40,10 @@ if ( !pathFound ){
 app.get('/download',( req , res )=>{
 
     res.download( __dirname+'/documents/cv.pdf' )
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=cv.pdf');
-
-    res.sendFile(filePath);
+    res.send({
+      'OK':200,
+      'Msg':'Downloaded succesfully'
+    })
     
 })
 
