@@ -41,14 +41,22 @@ app.get('/download',( req , res )=>{
 
     const filePath = __dirname + '/documents/cv.pdf';
 
-    res.download( filePath );
+    // Set headers for download
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'attachment; filename=cv.pdf');
-    res.sendFile(filePath);
-    res.send({
-      'OK':200,
-      'Msg':'Downloaded succesfully'
-    })
+
+    // Send the file for download
+    res.download(filePath, 'cv.pdf', (err) => {
+        if (err) {
+            console.error('Error sending file:', err);
+            res.status(500).send({Error:500,'Msg':'Internal Server Error'});
+        } else {
+            res.send({
+              'OK':200,
+              'Msg':'Downloaded succesfully'
+            })
+        }
+    });
     
 })
 
