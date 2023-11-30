@@ -16,7 +16,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(express.json())
+
 
 let pathFound = true;
 
@@ -27,6 +27,8 @@ if ( app.mountpath  != '/download' || app.mountpath  != '/sendemail' ){
 }
 
 if ( !pathFound ){
+
+    app.use(express.json())
 
     app.get(app.mountpath , ( req , res)=>{
         res.send({
@@ -40,7 +42,6 @@ if ( !pathFound ){
 app.get('/download',( req , res )=>{
 
     res.download( __dirname+'/documents/cv.pdf' )
-    res.send({'OK':200,'Msg':'File sent succesfully'});
     
 })
 
